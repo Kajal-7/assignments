@@ -3,6 +3,13 @@
 */
 
 function wait(n) {
+    const pr = new Promise((resolve, reject)=>{
+        if(!n  || isNaN(n)){
+            reject("Error")
+        } 
+        setTimeout(resolve, n*1000)
+    })
+    return pr
 }
 
 module.exports = wait;

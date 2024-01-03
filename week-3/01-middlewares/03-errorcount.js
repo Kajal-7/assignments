@@ -22,5 +22,10 @@ app.post('/user', function(req, res) {
 app.get('/errorCount', function(req, res) {
   res.status(200).json({ errorCount });
 });
-
+// error handler to detect error called after all routes
+// must call next(err) if not sending res
+app.use((err, req, res, next)=>{
+  errorCount++;
+  res.status(404).send("Error occured")
+})
 module.exports = app;

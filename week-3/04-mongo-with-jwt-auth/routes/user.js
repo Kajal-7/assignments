@@ -53,10 +53,8 @@ router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     const courseId = req.params.courseId
     const [bearer, token] = req.headers.authorization.split(' ')
     const username = jwt.verify(token, JWT_SECRET).username
-    const user = await User.findOne({username:username})
     const course = await Course.findById(courseId)
-    user.courses.push(course)
-    await user.save()
+    await User.findOneAndUpdate({username: username},{$push: {courses: course}} )
     res.send("Course purchased successfully")
 });
 

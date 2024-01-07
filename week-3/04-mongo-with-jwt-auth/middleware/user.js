@@ -14,7 +14,7 @@ async function userMiddleware(req, res, next) {
     try{
         const decoded = jwt.verify(token, JWT_SECRET)
         if(decoded && decoded.username){
-           const user = await User.find({username: decoded.username})
+           const user = await User.findOne({username: decoded.username})
            if(user){
             next()
            }else{
